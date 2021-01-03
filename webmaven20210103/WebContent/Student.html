@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script src="js/jquery3.5.1.min.js"></script>
+Student ID:	<input type="text" id="sid" value="107" />
+	<br /> 
+Student Name:<input type="text" id="sname" value="Alan" />
+	<br /> 
+Age :	<input type="text" id="age" value="20" /><br/>
+
+<button id="query">Query</button><button id="update">Update</button>
+<button id="add">add</button><button id="del">delete</button>
+<div id="message"></div>
+<script>
+
+	function rs(data){
+		$("#message").html(data);
+	}
+
+	function query(){
+		$.get("StudentQueryServlet",rs);
+	}
+
+	function update(){
+		var id=$("#sid").val();
+		var n=$("#sname").val();
+		var a=$("#age").val();
+		$.post("UpdateStudentServlet",{"sid":id,"sname":n,"age":a},rs);
+	}
+	
+	function add(){
+		var id=$("#sid").val();
+		var n=$("#sname").val();
+		var a=$("#age").val();
+		$.post("AddServlet",{"sid":id,"sname":n,"age":a},rs);
+	}
+	
+	function del(){
+		var id=$("#sid").val();
+		var n=$("#sname").val();
+		var a=$("#age").val();
+		$.post("DeleteServlet",{"sid":id,"sname":n,"age":a},rs);
+	}
+	
+	function buttonEvents(){
+		$("#query").click(query);
+		$("#update").click(update);
+		$("#del").click(del);
+		$("#add").click(add);
+	}
+
+	$(document).ready(buttonEvents);
+
+</script>
+
+</body>
+</html>
